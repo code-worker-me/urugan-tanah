@@ -7,29 +7,25 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+            <div class="p-4 w-full sm:p-8 bg-white shadow sm:rounded-lg">
+                    <section class="w-full">
+                        {{-- Header + Tombol Tambah --}}
+                        <header class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-medium text-gray-900">Daftar Proyek Urugan Tanah</h3>
+                            <x-button-link href="{{ route('urugan.create') }}">Tambah Proyek</x-button-link>
+                        </header>
 
-                    {{-- Header + Tombol Tambah --}}
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-lg font-semibold text-gray-700">Daftar Proyek Urugan Tanah</h3>
-                        <a href="{{ route('urugan.create') }}" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition">
-                            Tambah Proyek
-                        </a>
-                    </div>
-
-                    {{-- Table --}}
-                    <div class="overflow-x-auto rounded-lg border border-gray-200">
-                        <table class="min-w-full divide-y divide-gray-200 text-sm">
+                        {{-- Table --}}
+                        <table class="w-full border border-gray-200 divide-y divide-gray-200 text-sm">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-4 py-3 text-left font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">#</th>
-                                    <th class="px-4 py-3 text-left font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Nama Perusahaan</th>
-                                    <th class="px-4 py-3 text-left font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Alamat Perusahaan</th>
-                                    <th class="px-4 py-3 text-left font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Nama Konstruktor</th>
-                                    <th class="px-4 py-3 text-left font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Status</th>
-                                    <th class="px-4 py-3 text-left font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Tanggal Mulai</th>
-                                    <th class="px-4 py-3 text-center font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Aksi</th>
+                                    <x-th-table>#</x-th-table>
+                                    <x-th-table>Nama Perusahaan</x-th-table>
+                                    <x-th-table>Alamat Perusahaan</x-th-table>
+                                    <x-th-table>Nama Konstruktor</x-th-table>
+                                    <x-th-table>Status</x-th-table>
+                                    <x-th-table>Tanggal Mulai</x-th-table>
+                                    <x-th-table text="center">Aksi</x-th-table>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-100">
@@ -63,15 +59,7 @@
                                         {{ \Carbon\Carbon::parse($project->tanggal_mulai)->format('d-m-Y') }}
                                     </td>
                                     <td class="px-4 py-3 text-center">
-                                        <div class="inline-flex items-center gap-2">
-                                            <a href="{{ route('urugan.edit', $project) }}" class="text-indigo-600 hover:text-indigo-800 font-medium transition">Edit</a>
-                                            <span class="text-gray-300">|</span>
-                                            <form action="{{ route('urugan.delete', $project) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-500 hover:text-red-700 font-medium transition">Hapus</button>
-                                            </form>
-                                        </div>
+                                        <x-button-action editUrl="{{ route('urugan.edit', $project) }}" deleteUrl="{{ route('urugan.delete', $project) }}" />
                                     </td>
                                 </tr>
                                 @empty
@@ -84,7 +72,6 @@
 
                             </tbody>
                         </table>
-                    </div>
 
                     {{-- Pagination --}}
                     @if ($projects->hasPages())
@@ -92,8 +79,7 @@
                         {{ $projects->links() }}
                     </div>
                     @endif
-
-                </div>
+                </section>
             </div>
         </div>
     </div>
