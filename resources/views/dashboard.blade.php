@@ -11,7 +11,7 @@
                     <section class="w-full">
                         {{-- Header + Tombol Tambah --}}
                         <header class="flex justify-between items-center mb-6">
-                            <h3 class="text-lg font-medium text-gray-900">Daftar Proyek Urugan Tanah</h3>
+                            <h2 class="text-lg font-medium text-gray-900">Daftar Proyek Urugan Tanah</h2>
                             <x-button-link href="{{ route('urugan.create') }}">Tambah Proyek</x-button-link>
                         </header>
 
@@ -39,20 +39,11 @@
                                     <td class="px-4 py-3 text-gray-700">{{ $project->nama_konstruktor }}</td>
                                     <td class="px-4 py-3">
                                         @if ($project->status === 'accepted')
-                                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                                Accepted
-                                            </span>
+                                            <x-status-badge color="green">Accepted</x-status-badge>
                                         @elseif ($project->status === 'decline')
-                                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-                                                Decline
-                                            </span>
+                                            <x-status-badge size="small" padd="small" color="red">Decline</x-status-badge>
                                         @else
-                                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-yellow-400"></span>
-                                                Pending
-                                            </span>
+                                            <x-status-badge>Pending</x-status-badge>
                                         @endif
                                     </td>
                                     <td class="px-4 py-3 text-gray-600 whitespace-nowrap">

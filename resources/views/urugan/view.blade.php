@@ -3,10 +3,7 @@
         <div class="flex items-center gap-3">
             <a href="{{ route('dashboard') }}"
                class="text-gray-400 hover:text-gray-600 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                </svg>
+                   <x-ionicon-chevron-back-outline class="w-5 h-5" />
             </a>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Detail Urugan Tanah') }}
@@ -14,7 +11,7 @@
         </div>
     </x-slot>
 
-    <div class="py-10">
+    <div class="py-12">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
             {{-- ===== TOP CARD: Status + Action ===== --}}
@@ -25,20 +22,11 @@
                     <div class="flex items-center gap-3">
                         <span class="text-sm text-gray-500 font-medium">Status Pengajuan:</span>
                         @if ($urugan->status === 'accepted')
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-700">
-                                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                                Accepted
-                            </span>
+                            <x-status-badge size="big" padd="big" color="green">Accepted</x-status-badge>
                         @elseif ($urugan->status === 'decline')
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold bg-red-100 text-red-700">
-                                <span class="w-2 h-2 rounded-full bg-red-500"></span>
-                                Decline
-                            </span>
+                            <x-status-badge size="big" padd="big" color="red">Decline</x-status-badge>
                         @else
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-700">
-                                <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
-                                Pending
-                            </span>
+                            <x-status-badge size="big" padd="big">Pending</x-status-badge>
                         @endif
                     </div>
 

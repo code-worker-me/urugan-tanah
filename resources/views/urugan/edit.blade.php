@@ -3,11 +3,7 @@
         <div class="flex items-center gap-3">
             <a href="{{ route('dashboard') }}"
                class="text-gray-400 hover:text-gray-600 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M15 19l-7-7 7-7"/>
-                </svg>
+                   <x-ionicon-chevron-back-outline class="w-5 h-5" />
             </a>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Edit Urugan Tanah {{ $urugan->nama_pt }}
