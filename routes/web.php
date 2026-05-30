@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RitaseController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware("auth")->group(function () {
+    // Urugan Tanah Route
     Route::get("/", [DashboardController::class, "index"])->name("dashboard");
     Route::get("/create/urugan", [
         DashboardController::class,
@@ -34,6 +36,24 @@ Route::middleware("auth")->group(function () {
         DashboardController::class,
         "updateUrugan",
     ])->name("urugan.update");
+
+    // Ritase Tanah Route
+    Route::get("/ritase-tanah/{urugan}", [
+        RitaseController::class,
+        "index",
+    ])->name("ritase.index");
+    Route::get("/ritase-tanah/create/{urugan}", [
+        RitaseController::class,
+        "create",
+    ])->name("ritase.create");
+    Route::post("/ritase-tanah/{urugan}", [
+        RitaseController::class,
+        "store",
+    ])->name("ritase.store");
+    Route::delete("/urugan/{urugan}/ritase-tanah/{ritase}", [
+        RitaseController::class,
+        "delete",
+    ])->name("ritase.delete");
 });
 
 // Profile

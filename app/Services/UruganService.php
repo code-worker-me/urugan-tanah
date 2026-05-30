@@ -29,6 +29,14 @@ class UruganService
 
     public function delete(Urugan $urugan): bool
     {
+        $ritasesWithFoto = $urugan->ritase()->whereNotNull("foto")->get();
+
+        foreach ($ritasesWithFoto as $ritase) {
+            if (Storage::disk("public")->exists($ritase->foto)) {
+                Storage::disk("public")->delete($ritase->foto);
+            }
+        }
+
         if (
             $urugan->fileupload &&
             Storage::disk("public")->exists($urugan->fileupload)

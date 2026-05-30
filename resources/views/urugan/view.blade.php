@@ -35,32 +35,24 @@
                     <div class="flex items-center gap-3">
                         <span class="text-xs text-gray-400 italic hidden sm:block">Tindakan Kantor:</span>
 
-                        {{-- Accept --}}
-                        <form action="{{ route('urugan.update-status', $urugan) }}" method="POST">
-                            @csrf
-                            @method('PATCH')
-                            <input type="hidden" name="status" value="accepted">
-                            <button type="submit" onclick="confirmAction('accepted')"
-                                class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 active:scale-95 text-white text-sm font-semibold rounded-lg shadow-sm transition">
-                                <x-ionicon-checkmark-sharp class="w-4 h-4" />
-                                Accept
-                            </button>
-                        </form>
+                        <x-status-button
+                            :action="route('urugan.update-status', $urugan)"
+                            value="accepted"
+                            icon="checkmark"
+                        />
 
-                        {{-- Decline --}}
-                        <form action="{{ route('urugan.update-status', $urugan) }}" method="POST">
-                            @csrf
-                            @method('PATCH')
-                            <input type="hidden" name="status" value="decline">
-                            <button type="submit" onclick="confirmAction('decline')"
-                                class="inline-flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 active:scale-95 text-white text-sm font-semibold rounded-lg shadow-sm transition">
-                                <x-ionicon-close-sharp class="w-4 h-4" />
-                                Decline
-                            </button>
-                        </form>
+                        <x-status-button
+                            :action="route('urugan.update-status', $urugan)"
+                            value="decline"
+                            icon="close"
+                        />
                     </div>
+                    @elseif ($urugan->status === 'accepted')
+                    <x-button-link href="{{ route('ritase.index', $urugan) }}" >
+                        Ritase Tanah
+                    </x-button-link>
                     @else
-                    <p class="text-xs text-gray-400 italic">Pengajuan telah diproses.</p>
+                    <p class="text-xs text-gray-400 italic">Pengajuan ditolak.</p>
                     @endif
                 </div>
             </div>
