@@ -37,6 +37,28 @@ class RitaseController extends Controller
             ->with("success", "Data ritase tanah berhasil ditambah");
     }
 
+    public function edit(Urugan $urugan, Ritase $ritase)
+    {
+        return view("ritase-tanah.edit", compact("urugan", "ritase"));
+    }
+
+    public function update(
+        StoreRitaseRequest $request,
+        Urugan $urugan,
+        Ritase $ritase,
+        RitaseService $ritaseService,
+    ) {
+        $ritaseService->update(
+            $urugan,
+            $ritase,
+            $request->validated(),
+            $request->file("foto"),
+        );
+        return redirect()
+            ->route("ritase.index", $urugan)
+            ->with("success", "Data ritase tanah berhasil diperbarui!!");
+    }
+
     public function delete(
         Urugan $urugan,
         Ritase $ritase,

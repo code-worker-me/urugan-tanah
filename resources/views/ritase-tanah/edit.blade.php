@@ -6,7 +6,7 @@
                    <x-ionicon-chevron-back-outline class="w-5 h-5" />
             </a>
             <div>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Tambah Ritasi Tanah</h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Edit Ritasi Tanah</h2>
                 <p class="text-xs text-gray-400 mt-0.5">{{ $urugan->nama_pt }} &mdash; {{ $urugan->lokasi }}</p>
             </div>
         </div>
@@ -28,9 +28,10 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('ritase.store', $urugan) }}"
+                    <form action="{{ route('ritase.update', [$urugan->id, $ritase->id]) }}"
                           method="POST" enctype="multipart/form-data" class="space-y-6">
                         @csrf
+                        @method('PUT')
 
                         {{-- Identitas Truk --}}
                         <div>
@@ -44,7 +45,7 @@
                                         No. Plat Kendaraan <span class="text-red-500">*</span>
                                     </label>
                                     <input type="text" id="no_plat" name="no_plat"
-                                           value="{{ old('no_plat') }}"
+                                           value="{{ old('no_plat', $ritase->no_plat) }}"
                                            placeholder="Contoh: B 1234 XYZ"
                                            class="w-full rounded-lg border @error('no_plat') border-red-400 bg-red-50 @else border-gray-300 @enderror px-4 py-2.5 text-sm uppercase tracking-widest placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                                     @error('no_plat')
@@ -57,7 +58,7 @@
                                         Tanggal <span class="text-red-500">*</span>
                                     </label>
                                     <input type="date" id="tanggal" name="tanggal"
-                                           value="{{ old('tanggal', date('Y-m-d')) }}"
+                                           value="{{ old('tanggal', $ritase->tanggal) }}"
                                            class="w-full rounded-lg border @error('tanggal') border-red-40 bg-red-50 @else border-gray-300 @enderror px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                                     @error('tanggal')
                                         <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -81,7 +82,7 @@
                                     </label>
                                     <div class="relative">
                                         <input type="number" id="panjang" name="panjang"
-                                               value="{{ old('panjang') }}"
+                                               value="{{ old('panjang', $ritase->panjang) }}"
                                                placeholder="0.00" min="0.01" step="0.01"
                                                oninput="hitungVolume()"
                                                class="w-full rounded-lg border @error('panjang') border-red-400 bg-red-50 @else border-gray-300 @enderror pl-4 pr-8 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
@@ -98,7 +99,7 @@
                                     </label>
                                     <div class="relative">
                                         <input type="number" id="lebar" name="lebar"
-                                               value="{{ old('lebar') }}"
+                                               value="{{ old('lebar', $ritase->lebar) }}"
                                                placeholder="0.00" min="0.01" step="0.01"
                                                oninput="hitungVolume()"
                                                class="w-full rounded-lg border @error('lebar') border-red-400 bg-red-50 @else border-gray-300 @enderror pl-4 pr-8 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
@@ -115,7 +116,7 @@
                                     </label>
                                     <div class="relative">
                                         <input type="number" id="tinggi" name="tinggi"
-                                               value="{{ old('tinggi') }}"
+                                               value="{{ old('tinggi', $ritase->tinggi) }}"
                                                placeholder="0.00" min="0.01" step="0.01"
                                                oninput="hitungVolume()"
                                                class="w-full rounded-lg border @error('tinggi') border-red-400 bg-red-50 @else border-gray-300 @enderror pl-4 pr-8 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
@@ -153,23 +154,30 @@
                             </h3>
 
                             <label for="foto"
-                                   id="foto-zone"
-                                   class="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-gray-300 bg-gray-50 rounded-xl cursor-pointer hover:bg-indigo-50 hover:border-indigo-400 transition group">
-                                <div id="foto-default" class="flex flex-col items-center gap-2 pointer-events-none">
+                                id="foto-zone"
+                                class="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-gray-300 bg-gray-50 rounded-xl cursor-pointer hover:bg-indigo-50 hover:border-indigo-400 transition group">
+
+                                {{-- Jika ada foto lama dari DB, sembunyikan text default-nya --}}
+                                <div id="foto-default" class="flex flex-col items-center gap-2 pointer-events-none {{ $ritase->foto ? 'hidden' : '' }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-gray-300 group-hover:text-indigo-400 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                              d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                                                          d="M3 9a2 2 0 012-2h.93a2 2 0 011.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0118.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     </svg>
                                     <p class="text-sm text-gray-500 group-hover:text-indigo-600 transition">
-                                        <span class="font-semibold">Klik untuk upload foto</span>
+                                                                    <span class="font-semibold">Klik untuk mengganti foto</span>
                                     </p>
                                     <p class="text-xs text-gray-400">JPG, PNG, WEBP — maks. 5MB</p>
                                 </div>
-                                <img id="foto-preview" src="#" alt="Preview"
-                                     class="hidden max-h-28 rounded-lg object-cover pointer-events-none shadow">
+
+                                {{-- Jika ada foto lama dari DB, langsung tampilkan gambarnya --}}
+                                <img id="foto-preview"
+                                        src="{{ $ritase->foto ? asset('storage/' . $ritase->foto) : '#' }}"
+                                        alt="Preview"
+                                        class="{{ $ritase->foto ? '' : 'hidden' }} max-h-28 rounded-lg object-cover pointer-events-none shadow">
+
                                 <input id="foto" name="foto" type="file"
-                                       accept="image/jpg,image/jpeg,image/png,image/webp" class="hidden">
+                                        accept="image/jpg,image/jpeg,image/png,image/webp" class="hidden">
                             </label>
                             @error('foto')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -200,6 +208,10 @@
             const t = parseFloat(document.getElementById('tinggi').value)  || 0;
             document.getElementById('volume-display').textContent = (p * l * t).toFixed(1);
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+                    hitungVolume();
+                });
 
         // Preview foto
         document.getElementById('foto').addEventListener('change', function () {

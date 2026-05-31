@@ -46,10 +46,18 @@ Route::middleware("auth")->group(function () {
         RitaseController::class,
         "create",
     ])->name("ritase.create");
+    Route::get("/edit/{urugan}/ritase-tanah/{ritase}", [
+        RitaseController::class,
+        "edit",
+    ])->name("ritase.edit");
     Route::post("/ritase-tanah/{urugan}", [
         RitaseController::class,
         "store",
     ])->name("ritase.store");
+    Route::put("/update/{urugan}/ritase-tanah/{ritase}", [
+        RitaseController::class,
+        "update",
+    ])->name("ritase.update");
     Route::delete("/urugan/{urugan}/ritase-tanah/{ritase}", [
         RitaseController::class,
         "delete",

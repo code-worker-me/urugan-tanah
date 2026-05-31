@@ -22,6 +22,30 @@ class RitaseService
 
         return Ritase::create($data);
     }
+
+    public function update(
+        Urugan $urugan,
+        Ritase $ritase,
+        array $data,
+        ?UploadedFile $foto = null,
+    ) {
+        $data["urugan_id"] = $urugan->id;
+
+        if ($foto) {
+            if (
+                $ritase->foto &&
+                Storage::disk("public")->exists($ritase->foto)
+            ) {
+                Storage::disk("public")->delete($ritase->foto);
+            }
+            $path = $foto->store("ritase-tanah/foto", "public");
+            $data["foto"] = $path;
+        }
+
+        $ritase->update($data);
+        return $ritase;
+    }
+
     public function delete(Urugan $urugan, Ritase $ritase): bool
     {
         abort_if(

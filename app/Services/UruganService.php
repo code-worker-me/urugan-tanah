@@ -65,7 +65,6 @@ class UruganService
         }
 
         $urugan->update($data);
-
         return $urugan;
     }
 }

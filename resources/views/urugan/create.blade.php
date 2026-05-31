@@ -205,19 +205,12 @@
 
                         {{-- Actions --}}
                         <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
-                            <a href="{{ route('dashboard') }}"
-                               class="px-5 py-2.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-600 hover:bg-gray-50 transition">
+                            <x-button-link href="{{ route('dashboard') }}" color="red">
                                 Batal
-                            </a>
-                            <button type="submit"
-                                    class="inline-flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg shadow-sm transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
-                                     viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M5 13l4 4L19 7"/>
-                                </svg>
+                            </x-button-link>
+                            <x-primary-button>
                                 Simpan Pengajuan
-                            </button>
+                            </x-primary-button>
                         </div>
 
                     </form>
