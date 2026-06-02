@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y \
     gd \
     intl \
     soap \
-    zip
+    && apt-get clean && rm -rf /var/var/lib/apt/lists/*
 
 COPY --from=composer:2.10 /usr/bin/composer /usr/bin/composer
 
@@ -43,9 +43,9 @@ RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available
 COPY . .
 COPY --from=node-builder /app/public/build ./public/build
 
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev -o
 
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html
 
 # ==========================================
 # Stage 3: Running Entrypoint Script

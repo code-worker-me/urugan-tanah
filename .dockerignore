@@ -1,33 +1,31 @@
-src/vendor
-src/node_modules
-
-src/storage/logs
-src/storage/framework/cache/**
-!src/storage/framework/cache/
-
-src/.env
-src/.env.*
-
-src/phpunit.xml
-src/phpunit.xml.dist
-src/tests
-
-src/bootstrap/cache/**
-!src/bootstrap/cache/
-
-src/composer.lock
-src/yarn.lock
-src/package-lock.json
-
-*.swp
-*.swo
-*.bak
-*.tmp
-*.log
-*.idea
-*.vscode
-.DS_Store
-Thumbs.db
-
+# Git
 .git
 .gitignore
+
+# Logs
+storage/logs/*.log
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/testing/*
+storage/framework/views/*.php
+
+# node modules
+node_modules
+dist
+public/build
+
+# php dependencies
+vendor
+
+# Docker logs
+.docker
+docker-compose.yml
+
+# IDE & Editor files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
