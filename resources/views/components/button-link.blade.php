@@ -8,6 +8,7 @@
     $colorClasses = [
         'blue' => 'bg-blue-600 hover:bg-blue-700 text-white',
         'red'  => 'bg-red-600 hover:bg-red-700 text-white',
+        'green'  => 'bg-green-600 hover:bg-green-700 text-white',
     ][$color] ?? 'bg-blue-600 hover:bg-blue-700 text-white'; // Fallback ke biru jika warna tidak terdaftar
 @endphp
 

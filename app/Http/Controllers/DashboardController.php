@@ -12,7 +12,19 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $projects = Urugan::latest()->paginate(10);
+        $user = auth()->user();
+
+        if ($user->role === "lapangan") {
+            if ($user->uruganLapangan) {
+                return redirect()->route("ritase.index", $user->uruganLapangan);
+            }
+
+            abort(403, "Belum ditugaskan ke proyek.");
+        }
+        $projects =
+            $user->role === "kantor"
+                ? Urugan::latest()->paginate(10)
+                : $user->urugan()->latest()->paginate(10);
         return view("dashboard", compact("projects"));
     }
 

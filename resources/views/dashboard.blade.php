@@ -12,7 +12,9 @@
                         {{-- Header + Tombol Tambah --}}
                         <header class="flex justify-between items-center mb-6">
                             <h2 class="text-lg font-medium text-gray-900">Daftar Proyek Urugan Tanah</h2>
-                            <x-button-link href="{{ route('urugan.create') }}">Tambah Proyek</x-button-link>
+                            @can('konstruktor')
+                                <x-button-link href="{{ route('urugan.create') }}">Tambah Proyek</x-button-link>
+                            @endcan
                         </header>
 
                         {{-- Table --}}
@@ -25,7 +27,9 @@
                                     <x-th-table>Nama Konstruktor</x-th-table>
                                     <x-th-table>Status</x-th-table>
                                     <x-th-table>Tanggal Mulai</x-th-table>
-                                    <x-th-table text="center">Aksi</x-th-table>
+                                    @canany(['kantor', 'konstruktor'])
+                                        <x-th-table text="center">Aksi</x-th-table>
+                                    @endcanany
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-100">
@@ -49,9 +53,30 @@
                                     <td class="px-4 py-3 text-gray-600 whitespace-nowrap">
                                         {{ \Carbon\Carbon::parse($project->tanggal_mulai)->format('d-m-Y') }}
                                     </td>
+                                    @canany(['kantor', 'konstruktor'])
                                     <td class="px-4 py-3 text-center">
-                                        <x-button-action editUrl="{{ route('urugan.edit', $project) }}" deleteUrl="{{ route('urugan.delete', $project) }}" />
+                                        <div class="inline-flex items-center gap-2">
+                                            @if($project->status === 'decline')
+                                            <a href="{{ route('urugan.edit', $project) }}" class="text-indigo-600 hover:text-indigo-800 font-medium transition">
+                                                Edit
+                                            </a>
+                                            @endif
+                                            <a href="{{ route('urugan.view', $project) }}" class="text-gray-600 hover:text-gray-800 hover:underline font-medium transition">
+                                                View
+                                            </a>
+                                            @can('kantor')
+                                            <form action="{{ route('urugan.delete', $project) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-500 hover:text-red-700 font-medium transition">
+                                                    Hapus
+                                                </button>
+                                            </form>
+                                            @endcan
+                                        </div>
+                                        <!--<x-button-action editUrl="{{ route('urugan.edit', $project) }}" deleteUrl="{{ route('urugan.delete', $project) }}" />-->
                                     </td>
+                                    @endcanany
                                 </tr>
                                 @empty
                                 <tr>

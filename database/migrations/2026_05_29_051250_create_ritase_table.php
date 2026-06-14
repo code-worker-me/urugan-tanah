@@ -21,7 +21,7 @@ return new class extends Migration {
                 ->storedAs("panjang * lebar * tinggi")
                 ->comment("m³ - auto computed");
             $table->string("foto")->nullable();
-            $table->date("tanggal");
+            $table->dateTime("tanggal");
 
             $table
                 ->foreignId("urugan_id")

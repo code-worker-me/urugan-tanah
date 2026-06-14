@@ -43,7 +43,7 @@ RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available
 COPY . .
 COPY --from=node-builder /app/public/build ./public/build
 
-RUN composer install --no-dev -o
+RUN composer install
 
 RUN chown -R www-data:www-data /var/www/html
 

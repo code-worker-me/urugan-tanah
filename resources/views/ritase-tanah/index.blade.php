@@ -2,10 +2,12 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center gap-3">
+            @can('view-dashboard')
             <a href="{{ route('urugan.view', $urugan) }}"
                class="text-gray-400 hover:text-gray-600 transition">
                    <x-ionicon-chevron-back-outline class="w-5 h-5" />
             </a>
+            @endcan
             <div>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">Ritasi Tanah</h2>
                 <p class="text-xs text-gray-400 mt-0.5">{{ $urugan->nama_pt }} &mdash; {{ $urugan->lokasi }}</p>
@@ -54,7 +56,11 @@
             <div class="bg-white shadow-sm sm:rounded-xl border border-gray-100">
                 <header class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
                     <h3 class="text-lg font-medium text-gray-900">Daftar Ritasi Kendaraan</h3>
-                    <x-button-link href="{{ route('ritase.create', $urugan) }}">Tambah Proyek</x-button-link>
+                    @can('lapangan')
+                        @if($urugan->status === 'accepted')
+                        <x-button-link href="{{ route('ritase.create', $urugan) }}">Tambah Kendaraan</x-button-link>
+                        @endif
+                    @endcan
                 </header>
 
                 <div class="overflow-x-auto">
@@ -68,7 +74,9 @@
                                 <x-th-table>L (m)</x-th-table>
                                 <x-th-table>T (m)</x-th-table>
                                 <x-th-table>Volume (m³)</x-th-table>
-                                <x-th-table>Aksi</x-th-table>
+                                @can('kantor')
+                                    <x-th-table text="center">Aksi</x-th-table>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-50 bg-white">
@@ -84,7 +92,7 @@
                                 </td>
 
                                 <td class="px-4 py-3 text-gray-600 whitespace-nowrap">
-                                    {{ \Carbon\Carbon::parse($ritasi->tanggal)->translatedFormat('d M Y') }}
+                                    {{ \Carbon\Carbon::parse($ritasi->tanggal)->translatedFormat('d M Y, H:i') }}
                                 </td>
 
                                 <td class="px-4 py-3 text-center text-gray-600">{{ number_format($ritasi->panjang, 2) }}</td>
@@ -97,9 +105,28 @@
                                     </span>
                                 </td>
 
+                                @canany('kantor')
                                 <td class="px-4 py-3 text-center">
-                                    <x-button-action editUrl="{{ route('ritase.edit', [$urugan->id, $ritasi->id]) }}" deleteUrl="{{ route('ritase.delete', [$urugan->id, $ritasi->id]) }}" />
+                                    <!--<x-button-action editUrl="{{ route('ritase.edit', [$urugan->id, $ritasi->id]) }}" deleteUrl="{{ route('ritase.delete', [$urugan->id, $ritasi->id]) }}" />-->
+                                    <div class="inline-flex items-center gap-2">
+
+                                        <a href="{{ route('ritase.edit', [$urugan->id, $ritasi->id]) }}" class="text-indigo-600 hover:text-indigo-800 font-medium transition">
+                                            Edit
+                                        </a>
+
+
+                                        <span class="text-gray-300">|</span>
+                                        <form action="{{ route('ritase.delete', [$urugan->id, $ritasi->id]) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-500 hover:text-red-700 font-medium transition">
+                                                Hapus
+                                            </button>
+                                        </form>
+
+                                    </div>
                                 </td>
+                                @endcan
                             </tr>
                             @empty
                             <tr>

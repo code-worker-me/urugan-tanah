@@ -12,7 +12,7 @@ class StoreUruganRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()?->can("konstruktor");
     }
 
     protected function prepareForValidation(): void

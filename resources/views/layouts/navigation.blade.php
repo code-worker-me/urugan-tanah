@@ -10,10 +10,18 @@
                     </a>
                 </div>
 
+                @can('view-dashboard')
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Home') }}
+                    </x-nav-link>
+                </div>
+                @endcan
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('jadwal.index')" :active="request()->routeIs('jadwal.index')">
+                        {{ __('Jadwal Truk') }}
                     </x-nav-link>
                 </div>
             </div>

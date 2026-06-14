@@ -28,15 +28,15 @@
                         </div>
                     @endif
 
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-indigo-500 mb-4 pb-2 border-b border-gray-100">
+                        Identitas Kendaraan
+                    </h3>
                     <form action="{{ route('ritase.store', $urugan) }}"
-                          method="POST" enctype="multipart/form-data" class="space-y-6">
+                          method="POST" enctype="multipart/form-data" class="space-y-4">
                         @csrf
 
                         {{-- Identitas Truk --}}
                         <div>
-                            <h3 class="text-xs font-bold uppercase tracking-widest text-indigo-500 mb-4 pb-2 border-b border-gray-100">
-                                Identitas Kendaraan
-                            </h3>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
 
                                 <div class="sm:col-span-1">
@@ -48,18 +48,6 @@
                                            placeholder="Contoh: B 1234 XYZ"
                                            class="w-full rounded-lg border @error('no_plat') border-red-400 bg-red-50 @else border-gray-300 @enderror px-4 py-2.5 text-sm uppercase tracking-widest placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                                     @error('no_plat')
-                                        <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
-                                    @enderror
-                                </div>
-
-                                <div class="sm:col-span-1">
-                                    <label for="tanggal" class="block text-sm font-medium text-gray-700 mb-1">
-                                        Tanggal <span class="text-red-500">*</span>
-                                    </label>
-                                    <input type="date" id="tanggal" name="tanggal"
-                                           value="{{ old('tanggal', date('Y-m-d')) }}"
-                                           class="w-full rounded-lg border @error('tanggal') border-red-40 bg-red-50 @else border-gray-300 @enderror px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                                    @error('tanggal')
                                         <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                                     @enderror
                                 </div>

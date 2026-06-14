@@ -134,6 +134,7 @@
                                 </div>
 
                                 {{-- Status --}}
+                                @can('kantor')
                                 <div>
                                     <label for="status"
                                            class="block text-sm font-medium text-gray-700 mb-1">
@@ -157,6 +158,7 @@
                                         <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                                     @enderror
                                 </div>
+                                @endcan
 
                                 {{-- Lokasi Tanah --}}
                                 <div class="md:col-span-2">

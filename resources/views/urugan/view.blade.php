@@ -32,6 +32,7 @@
 
                     {{-- Action Buttons (Role: Kantor) --}}
                     @if ($urugan->status === 'pending')
+                    @can('kantor')
                     <div class="flex items-center gap-3">
                         <span class="text-xs text-gray-400 italic hidden sm:block">Tindakan Kantor:</span>
 
@@ -47,10 +48,19 @@
                             icon="close"
                         />
                     </div>
+                    @endcan
+                    @can('konstruktor')
+                    <p class="text-xs text-gray-400 italic">Pengajuan sedang ditinjau oleh Kantor.</p>
+                    @endcan
                     @elseif ($urugan->status === 'accepted')
+                    <div>
                     <x-button-link href="{{ route('ritase.index', $urugan) }}" >
                         Ritase Tanah
                     </x-button-link>
+                    <x-button-link color="green" href="{{ route('jadwalUrugan.index', $urugan) }}" >
+                        Jadwal Truk
+                    </x-button-link>
+                    </div>
                     @else
                     <p class="text-xs text-gray-400 italic">Pengajuan ditolak.</p>
                     @endif
@@ -149,6 +159,43 @@
 
                         </div>
                     </div>
+
+                    @if ($urugan->status === 'accepted')
+                    {{-- Card: Admin Lapangan --}}
+                    <div class="bg-white shadow-sm sm:rounded-xl border border-gray-100 overflow-hidden">
+                        <div class="px-5 py-4 border-b border-gray-100 bg-gray-50">
+                            <h3 class="text-xs font-bold uppercase tracking-widest text-indigo-500">
+                                Admin Lapangan
+                            </h3>
+                        </div>
+                        <div class="divide-y divide-gray-50">
+                            @if($urugan->adminLapangan)
+                                <div class="px-5 py-5 mt-4">
+                                    <p class="text-xs text-gray-400 mb-2">
+                                        Nama Admin Lapangan
+                                    </p>
+                                    <p class="text-sm font-semibold text-gray-800 mb-2">
+                                        {{ $urugan->adminLapangan->name }}
+                                    </p>
+                                    <p class="text-xs text-gray-500 mb-4">
+                                        {{ $urugan->adminLapangan->email }}
+                                    </p>
+                                </div>
+                            @else
+                                <div class="px-5 py-5">
+                                    <p class="text-sm text-gray-500">
+                                        Belum ada admin lapangan.
+                                        @can('kantor')
+                                        <a href="{{ route('lapangan.create', $urugan) }}" class="underline hover:text-blue-600">
+                                            Tambah admin lapangan
+                                        </a>
+                                        @endcan
+                                    </p>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    @endif
 
                 </div>
 

@@ -12,6 +12,11 @@ return new class extends Migration {
     {
         Schema::create("urugan", function (Blueprint $table) {
             $table->id();
+            $table
+                ->foreignId("admin_lapangan_id")
+                ->nullable()
+                ->constrained("users")
+                ->nullOnDelete();
             $table->string("nama_pt");
             $table->string("alamat_pt");
             $table->string("nama_konstruktor");

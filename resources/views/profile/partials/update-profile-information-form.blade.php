@@ -47,6 +47,12 @@
             @endif
         </div>
 
+        <div>
+            <x-input-label for="name" :value="__('Role')" />
+            <x-text-input id="role" name="role" type="text" class="mt-1 block w-full" :value="ucfirst(old('role', $user->role))" disabled="true" />
+            <x-input-error class="mt-2" :messages="$errors->get('role')" />
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

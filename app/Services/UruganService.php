@@ -15,7 +15,10 @@ class UruganService
             $data["fileupload"] = $path;
         }
 
-        return Urugan::create($data);
+        $urugan = Urugan::create($data);
+        $urugan->user()->attach(auth()->id());
+
+        return $urugan;
     }
 
     public function updateStatus(Urugan $urugan, string $status): Urugan
