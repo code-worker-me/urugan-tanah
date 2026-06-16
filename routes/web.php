@@ -16,6 +16,9 @@ require base_path('routes/modules/jadwal.php');
 // Admin Lapangan
 require base_path('routes/modules/lapangan.php');
 
+// User Management
+require base_path('routes/modules/user-manage.php');
+
 
 // Profile
 Route::middleware("auth")->group(function () {

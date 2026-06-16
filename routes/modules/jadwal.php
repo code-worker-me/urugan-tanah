@@ -25,4 +25,4 @@ Route::middleware("auth")->group(function () {
     ])->name("jadwalUrugan.delete");
 });
 
-Route::get("/", [JadwalController::class, "index"])->name("jadwal.index")->middleware("guest");
+Route::get("/", [JadwalController::class, "index"])->name("jadwal.index");

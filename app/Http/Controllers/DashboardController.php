@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Urugan;
 use App\Http\Requests\StoreUruganRequest;
 use App\Http\Requests\UpdateStatusUruganRequest;
@@ -23,8 +22,8 @@ class DashboardController extends Controller
         }
         $projects =
             $user->role === "kantor"
-                ? Urugan::latest()->paginate(10)
-                : $user->urugan()->latest()->paginate(10);
+            ? Urugan::latest()->paginate(10)
+            : $user->urugan()->latest()->paginate(10);
         return view("dashboard", compact("projects"));
     }
 
