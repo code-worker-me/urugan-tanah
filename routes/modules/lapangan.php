@@ -9,8 +9,8 @@ Route::middleware("auth")->group(function () {
         "create",
     ])->name("lapangan.create");
 
-    Route::post("/urugan/{urugan}/lapangan", [
+    Route::put("/urugan/{urugan}/lapangan/", [
         LapanganController::class,
-        "store",
-    ])->name("lapangan.store");
+        "addLapangan",
+    ])->name("lapangan.update");
 });

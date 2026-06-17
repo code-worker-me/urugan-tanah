@@ -14,25 +14,15 @@ class LapanganController extends Controller
         return view("lapangan.create", compact("urugan"));
     }
 
-    public function store(Request $request, Urugan $urugan)
+    public function addLapangan(Request $request, Urugan $urugan)
     {
-        $validated = $request->validate([
-            "name" => ["required"],
-            "email" => ["required", "email", "unique:users,email"],
-            "password" => ["required", "confirmed"],
-        ]);
 
-        $lapangan = User::create([
-            "name" => $validated["name"],
-            "email" => $validated["email"],
-            "password" => Hash::make($validated["password"]),
-            "role" => "lapangan",
+        $request->validate([
+            'admin_lapangan_id' => 'required|exists:users,id'
         ]);
-
         $urugan->update([
-            "admin_lapangan_id" => $lapangan->id,
+            "admin_lapangan_id" => $request->admin_lapangan_id,
         ]);
-
         return redirect()
             ->route("urugan.view", $urugan)
             ->with("success", "Admin lapangan berhasil dibuat.");

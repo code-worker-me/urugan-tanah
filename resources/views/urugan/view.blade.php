@@ -1,9 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center gap-3">
-            <a href="{{ route('dashboard') }}"
-               class="text-gray-400 hover:text-gray-600 transition">
-                   <x-ionicon-chevron-back-outline class="w-5 h-5" />
+            <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-600 transition">
+                <x-ionicon-chevron-back-outline class="w-5 h-5" />
             </a>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Detail Urugan Tanah') }}
@@ -32,37 +31,31 @@
 
                     {{-- Action Buttons (Role: Kantor) --}}
                     @if ($urugan->status === 'pending')
-                    @can('kantor')
-                    <div class="flex items-center gap-3">
-                        <span class="text-xs text-gray-400 italic hidden sm:block">Tindakan Kantor:</span>
+                        @can('kantor')
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs text-gray-400 italic hidden sm:block">Tindakan Kantor:</span>
 
-                        <x-status-button
-                            :action="route('urugan.update-status', $urugan)"
-                            value="accepted"
-                            icon="checkmark"
-                        />
+                                <x-status-button :action="route('urugan.update-status', $urugan)" value="accepted"
+                                    icon="checkmark" />
 
-                        <x-status-button
-                            :action="route('urugan.update-status', $urugan)"
-                            value="decline"
-                            icon="close"
-                        />
-                    </div>
-                    @endcan
-                    @can('konstruktor')
-                    <p class="text-xs text-gray-400 italic">Pengajuan sedang ditinjau oleh Kantor.</p>
-                    @endcan
+                                <x-status-button :action="route('urugan.update-status', $urugan)" value="decline"
+                                    icon="close" />
+                            </div>
+                        @endcan
+                        @can('konstruktor')
+                            <p class="text-xs text-gray-400 italic">Pengajuan sedang ditinjau oleh Kantor.</p>
+                        @endcan
                     @elseif ($urugan->status === 'accepted')
-                    <div>
-                    <x-button-link href="{{ route('ritase.index', $urugan) }}" >
-                        Ritase Tanah
-                    </x-button-link>
-                    <x-button-link color="green" href="{{ route('jadwalUrugan.index', $urugan) }}" >
-                        Jadwal Truk
-                    </x-button-link>
-                    </div>
+                        <div>
+                            <x-button-link href="{{ route('ritase.index', $urugan) }}">
+                                Ritase Tanah
+                            </x-button-link>
+                            <x-button-link color="green" href="{{ route('jadwalUrugan.index', $urugan) }}">
+                                Jadwal Truk
+                            </x-button-link>
+                        </div>
                     @else
-                    <p class="text-xs text-gray-400 italic">Pengajuan ditolak.</p>
+                        <p class="text-xs text-gray-400 italic">Pengajuan ditolak.</p>
                     @endif
                 </div>
             </div>
@@ -95,7 +88,8 @@
                             <div class="px-5 py-4">
                                 <p class="text-xs text-gray-400 mb-0.5">Nama Konstruktor</p>
                                 <div class="flex items-center gap-2 mt-1">
-                                    <div class="w-7 h-7 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs flex-shrink-0">
+                                    <div
+                                        class="w-7 h-7 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs flex-shrink-0">
                                         {{ strtoupper(substr($urugan->nama_konstruktor, 0, 1)) }}
                                     </div>
                                     <p class="text-sm font-medium text-gray-800">{{ $urugan->nama_konstruktor }}</p>
@@ -117,10 +111,11 @@
                             <div class="px-5 py-4">
                                 <p class="text-xs text-gray-400 mb-0.5">Tanggal Mulai</p>
                                 <div class="flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-indigo-400 flex-shrink-0"
-                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-4 h-4 text-indigo-400 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                     <p class="text-sm font-medium text-gray-800">
                                         {{ \Carbon\Carbon::parse($urugan->tanggal_mulai)->translatedFormat('d F Y') }}
@@ -131,7 +126,8 @@
                             <div class="px-5 py-4">
                                 <p class="text-xs text-gray-400 mb-0.5">Luas Tanah</p>
                                 <div class="flex items-baseline gap-1">
-                                    <span class="text-2xl font-bold text-gray-800">{{ number_format($urugan->luas_tanah, 0, ',', '.') }}</span>
+                                    <span
+                                        class="text-2xl font-bold text-gray-800">{{ number_format($urugan->luas_tanah, 0, ',', '.') }}</span>
                                     <span class="text-sm text-gray-400 font-medium">m²</span>
                                 </div>
                             </div>
@@ -139,12 +135,13 @@
                             <div class="px-5 py-4">
                                 <p class="text-xs text-gray-400 mb-0.5">Lokasi Tanah</p>
                                 <div class="flex items-start gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0"
-                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                            d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
                                     <p class="text-sm text-gray-700">{{ $urugan->lokasi }}</p>
                                 </div>
@@ -161,54 +158,112 @@
                     </div>
 
                     @if ($urugan->status === 'accepted')
-                    {{-- Card: Admin Lapangan --}}
-                    <div class="bg-white shadow-sm sm:rounded-xl border border-gray-100 overflow-hidden">
-                        <div class="px-5 py-4 border-b border-gray-100 bg-gray-50">
-                            <h3 class="text-xs font-bold uppercase tracking-widest text-indigo-500">
-                                Admin Lapangan
-                            </h3>
-                        </div>
-                        <div class="divide-y divide-gray-50">
-                            @if($urugan->adminLapangan)
-                                <div class="px-5 py-5 mt-4">
-                                    <p class="text-xs text-gray-400 mb-2">
-                                        Nama Admin Lapangan
-                                    </p>
-                                    <p class="text-sm font-semibold text-gray-800 mb-2">
-                                        {{ $urugan->adminLapangan->name }}
-                                    </p>
-                                    <p class="text-xs text-gray-500 mb-4">
-                                        {{ $urugan->adminLapangan->email }}
-                                    </p>
+                        {{-- Card: Admin Lapangan --}}
+                        <div
+                            class="bg-white shadow-md rounded-xl border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg">
+                            <div
+                                class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <span class="p-1.5 rounded-lg bg-indigo-50 text-indigo-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-700">
+                                        Admin Lapangan
+                                    </h3>
                                 </div>
-                            @else
-                                <div class="px-5 py-5">
-                                    <p class="text-sm text-gray-500">
-                                        Belum ada admin lapangan.
-                                        @can('kantor')
-                                        <a href="{{ route('lapangan.create', $urugan) }}" class="underline hover:text-blue-600">
-                                            Tambah admin lapangan
-                                        </a>
-                                        @endcan
-                                    </p>
-                                </div>
-                            @endif
+                            </div>
+
+                            <div class="p-6">
+                                @if($urugan->adminLapangan)
+                                    <div class="mb-6 p-4 rounded-xl bg-gray-50 border border-gray-100 flex items-start gap-4">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm uppercase">
+                                            {{ substr($urugan->adminLapangan->name, 0, 2) }}
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <span
+                                                class="text-[10px] font-semibold uppercase tracking-wider text-gray-400 block mb-0.5">Petugas
+                                                Aktif</span>
+                                            <h4 class="text-sm font-semibold text-gray-900 truncate">
+                                                {{ $urugan->adminLapangan->name }}
+                                            </h4>
+                                            <p class="text-xs text-gray-500 truncate">{{ $urugan->adminLapangan->email }}</p>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div
+                                        class="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-100 text-amber-800 flex items-center gap-3">
+                                        <svg class="w-5 h-5 text-amber-600 shrink-0" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                                            </path>
+                                        </svg>
+                                        <p class="text-xs font-medium">Belum ada admin lapangan yang ditugaskan pada proyek ini.
+                                        </p>
+                                    </div>
+                                @endif
+
+                                @can('kantor')
+                                    <form action="{{ route('lapangan.update', $urugan->id) }}" method="POST" class="space-y-3">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <div>
+                                            <label class="block text-xs font-medium text-gray-600 mb-1.5">
+                                                {{ $urugan->adminLapangan ? 'Ganti Penugasan Admin' : 'Pilih & Tugaskan Admin' }}
+                                            </label>
+                                            <div class="relative">
+                                                <select name="admin_lapangan_id" required
+                                                    class="w-full rounded-lg border @error('admin_lapangan_id') border-red-400 bg-red-50 @else border-gray-300 bg-white @enderror pl-4 pr-10 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition appearance-none cursor-pointer">
+                                                    <option value="" disabled {{ is_null($urugan->adminLapangan) ? 'selected' : '' }}>-- Pilih Personel Lapangan --</option>
+
+                                                    @foreach ($usersLapangan as $user)
+                                                        <option value="{{ $user->id }}" {{ optional($urugan->adminLapangan)->id == $user->id ? 'selected' : '' }}>
+                                                            {{ $user->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                <div
+                                                    class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-500">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M19 9l-7 7-7-7"></path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            @error('admin_lapangan_id')
+                                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+
+                                        <button type="submit"
+                                            class="w-full inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                            Simpan Penugasan
+                                        </button>
+                                    </form>
+                                @endcan
+                            </div>
                         </div>
-                    </div>
                     @endif
 
                 </div>
 
                 {{-- RIGHT: PDF Viewer (3/5) --}}
                 <div class="lg:col-span-3">
-                    <div class="bg-white shadow-sm sm:rounded-xl border border-gray-100 overflow-hidden h-full flex flex-col">
+                    <div
+                        class="bg-white shadow-sm sm:rounded-xl border border-gray-100 overflow-hidden h-full flex flex-col">
 
                         <div class="px-5 py-4 border-b border-gray-100 bg-gray-50 flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-red-500" fill="none"
-                                     viewBox="0 0 24 24" stroke="currentColor">
+                                    viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
                                 <h3 class="text-xs font-bold uppercase tracking-widest text-indigo-500">
                                     Dokumen Pendukung
@@ -217,48 +272,45 @@
 
                             {{-- Download button --}}
                             @if ($urugan->fileupload)
-                            <a href="{{ asset('storage/' . $urugan->fileupload) }}"
-                               download
-                               class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg border border-indigo-200 transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none"
-                                     viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                                </svg>
-                                Download PDF
-                            </a>
+                                <a href="{{ asset('storage/' . $urugan->fileupload) }}" download
+                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg border border-indigo-200 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    Download PDF
+                                </a>
                             @endif
                         </div>
 
                         {{-- PDF iframe --}}
                         <div class="flex-1 min-h-0 bg-gray-100">
                             @if ($urugan->fileupload)
-                                <iframe
-                                    src="{{ asset('storage/' . $urugan->fileupload) }}#toolbar=1&navpanes=0&scrollbar=1"
-                                    class="w-full"
-                                    style="height: 680px;"
-                                    type="application/pdf"
+                                <iframe src="{{ asset('storage/' . $urugan->fileupload) }}#toolbar=1&navpanes=0&scrollbar=1"
+                                    class="w-full" style="height: 680px;" type="application/pdf"
                                     title="Dokumen Urugan Tanah - {{ $urugan->nama_pt }}">
                                     {{-- Fallback jika browser tidak support inline PDF --}}
                                     <div class="flex flex-col items-center justify-center h-full gap-3 p-6 text-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-300" fill="none"
-                                             viewBox="0 0 24 24" stroke="currentColor">
+                                            viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                         </svg>
                                         <p class="text-sm text-gray-500">Browser Anda tidak mendukung tampilan PDF.</p>
                                         <a href="{{ asset('storage/' . $urugan->fileupload) }}"
-                                           class="text-sm text-indigo-600 underline font-medium">
+                                            class="text-sm text-indigo-600 underline font-medium">
                                             Klik di sini untuk membuka dokumen
                                         </a>
                                     </div>
                                 </iframe>
                             @else
-                                <div class="flex flex-col items-center justify-center gap-3 p-10 text-center" style="height: 680px;">
+                                <div class="flex flex-col items-center justify-center gap-3 p-10 text-center"
+                                    style="height: 680px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-gray-200" fill="none"
-                                         viewBox="0 0 24 24" stroke="currentColor">
+                                        viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
                                     <p class="text-sm font-medium text-gray-400">Tidak ada dokumen yang diunggah.</p>
                                 </div>
@@ -275,13 +327,12 @@
 
     {{-- ===== MODAL KONFIRMASI ===== --}}
     <div id="confirm-modal"
-         class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm px-4">
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm px-4">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 transform transition-all scale-95 opacity-0"
-             id="modal-box">
+            id="modal-box">
 
             <div class="flex items-center gap-3 mb-4">
-                <div id="modal-icon"
-                     class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
+                <div id="modal-icon" class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
                 </div>
                 <div>
                     <h4 id="modal-title" class="text-base font-bold text-gray-800"></h4>
@@ -291,11 +342,11 @@
 
             <div class="flex gap-3 justify-end mt-6">
                 <button onclick="closeModal()"
-                        class="px-4 py-2 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition">
+                    class="px-4 py-2 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition">
                     Batal
                 </button>
                 <button id="modal-confirm-btn"
-                        class="px-5 py-2 rounded-lg text-sm font-bold text-white transition active:scale-95">
+                    class="px-5 py-2 rounded-lg text-sm font-bold text-white transition active:scale-95">
                     Konfirmasi
                 </button>
             </div>

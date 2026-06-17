@@ -1,22 +1,19 @@
 # ==========================================
-# Stage 1: Node.js untuk Running Vite Dev Server
+# Stage 1: Build aset Vite menggunakan Node.js
 # ==========================================
-FROM node:22-alpine AS node-dev
+FROM node:22-alpine AS node-builder
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
-# Kita ekspos port Vite agar bisa diakses oleh browser/HMR
-EXPOSE 5173 
-CMD ["npm", "run", "dev", "--", "--host"]
+RUN npm run build # Production build
+# RUN npm run dev # Development process
 
 # ==========================================
 # Stage 2: Setup Server PHP-Apache
 # ==========================================
 FROM php:8.3-apache
 WORKDIR /var/www/html
-
-# Mengatasi typo path rm -rf pada kode lama Anda (/var/var/lib/...)
 RUN apt-get update && apt-get install -y \
     zip \
     unzip \
@@ -36,21 +33,17 @@ RUN apt-get update && apt-get install -y \
     gd \
     intl \
     soap \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get clean && rm -rf /var/var/lib/apt/lists/*
 
 COPY --from=composer:2.10 /usr/bin/composer /usr/bin/composer
 
 RUN a2enmod rewrite
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
 
-# Untuk development, biasanya folder vendor di-ignore atau di-mount via volume,
-# namun kita tetap copy source awal & install untuk antisipasi dasar.
 COPY . .
+COPY --from=node-builder /app/public/build ./public/build
 
-# Catatan: Kita TIDAK MENG-COPY folder public/build lagi karena 
-# Laravel Vite di mode dev akan otomatis mengarah ke localhost:5173
-
-RUN composer install --no-interaction
+RUN composer install
 
 RUN chown -R www-data:www-data /var/www/html
 

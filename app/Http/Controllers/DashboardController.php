@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Urugan;
 use App\Http\Requests\StoreUruganRequest;
 use App\Http\Requests\UpdateStatusUruganRequest;
+use App\Models\User;
 use App\Services\UruganService;
 
 class DashboardController extends Controller
@@ -39,7 +40,11 @@ class DashboardController extends Controller
 
     public function showUrugan(Urugan $urugan)
     {
-        return view("urugan.view", compact("urugan"));
+        $usersLapangan = User::where('role', 'lapangan')->get();
+
+        $urugan->load('user');
+
+        return view("urugan.view", compact("urugan", "usersLapangan"));
     }
 
     public function storeUrugan(

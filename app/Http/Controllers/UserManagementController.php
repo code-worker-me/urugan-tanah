@@ -24,7 +24,7 @@ class UserManagementController extends Controller
         UserService $userService,
     ) {
         $validated = $request->validated();
-        $user = $userService->create($validated);
+        $userService->create($validated);
         return redirect()
             ->route("user-manage.index")
             ->with('success', 'User berhasil dibuat!!');
