@@ -13,6 +13,7 @@ storage/framework/views/*.php
 node_modules
 dist
 public/build
+public/storage
 
 # php dependencies
 vendor
