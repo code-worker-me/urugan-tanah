@@ -13,7 +13,7 @@ class JadwalController extends Controller
     public function index()
     {
         $data = JadwalTruk::with(["urugan"])
-            ->kerja()
+            // ->kerja()
             ->latest("waktu")
             ->paginate(15);
         return view("jadwal", compact("data"));
