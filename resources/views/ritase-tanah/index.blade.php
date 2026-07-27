@@ -70,12 +70,12 @@
                                 <x-th-table>#</x-th-table>
                                 <x-th-table>No. Plat</x-th-table>
                                 <x-th-table>Tanggal</x-th-table>
-                                <x-th-table>P (m)</x-th-table>
-                                <x-th-table>L (m)</x-th-table>
-                                <x-th-table>T (m)</x-th-table>
-                                <x-th-table>Volume (m³)</x-th-table>
+                                <x-th-table text="center">P (m)</x-th-table>
+                                <x-th-table text="center">L (m)</x-th-table>
+                                <x-th-table text="center">T (m)</x-th-table>
+                                <x-th-table text="center">Volume (m³)</x-th-table>
                                 @can('kantor')
-                                    <x-th-table text="center">Aksi</x-th-table>
+                                <x-th-table text="center">Aksi</x-th-table>
                                 @endcan
                             </tr>
                         </thead>
