@@ -19,15 +19,19 @@
 @endphp
 
 <span {{ $attributes->merge(['class' => "inline-flex items-center gap-1.5 rounded-full font-semibold " . $paddSize . " " . match($color) {
-    'green' => 'bg-green-100 text-green-700',
-    'red' => 'bg-red-100 text-red-700',
-    default => 'bg-yellow-100 text-yellow-700'
+    'green' => 'bg-emerald-100 text-emerald-800 border border-emerald-200',
+    'red' => 'bg-red-100 text-red-800 border border-red-200',
+    'gray', 'slate' => 'bg-slate-100 text-slate-700 border border-slate-200',
+    'blue', 'indigo' => 'bg-blue-100 text-blue-800 border border-blue-200',
+    default => 'bg-amber-100 text-amber-800 border border-amber-200'
 }]) }}>
 
     <span class="rounded-full animate-pulse {{ $badgeSize }} {{ match($color) {
-        'green' => 'bg-green-500',
+        'green' => 'bg-emerald-500',
         'red' => 'bg-red-500',
-        default => 'bg-yellow-500'
+        'gray', 'slate' => 'bg-slate-400',
+        'blue', 'indigo' => 'bg-blue-500',
+        default => 'bg-amber-500'
     } }}"></span>
 
     {{ $slot }}

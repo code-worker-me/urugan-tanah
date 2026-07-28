@@ -146,15 +146,6 @@
                                 <div class="w-3 h-3 rounded-full bg-red-600 animate-pulse"></div>
                                 <h2 class="text-xl font-bold text-blue-950 tracking-tight">Daftar Proyek Urugan Tanah</h2>
                             </div>
-
-                            @can('konstruktor')
-                                <x-button-link href="{{ route('urugan.create') }}" color="blue">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-                                    </svg>
-                                    <span>Tambah Proyek</span>
-                                </x-button-link>
-                            @endcan
                         </header>
 
                         {{-- Desktop Table View --}}

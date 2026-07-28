@@ -106,15 +106,6 @@
                                 <div class="w-3 h-3 rounded-full bg-red-600 animate-pulse"></div>
                                 <h2 class="text-xl font-bold text-blue-950 tracking-tight">Daftar Karyawan & Hak Akses</h2>
                             </div>
-
-                            @can('kantor')
-                                <x-button-link href="{{ route('user-manage.create') }}" color="blue">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
-                                    </svg>
-                                    <span>Tambah Karyawan</span>
-                                </x-button-link>
-                            @endcan
                         </header>
 
                         {{-- Table Desktop --}}
