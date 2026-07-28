@@ -55,11 +55,31 @@
 
                     {{-- Status --}}
                     <td class="px-4 py-3.5">
-                        @if(strtolower($item->status ?? '') === 'kerja')
-                            <x-status-badge size="small" color="green">Kerja / Operasional</x-status-badge>
+                        @can('kantor')
+                            @if($urugan)
+                                <form action="{{ route('jadwalUrugan.updateStatus', [$urugan->id, $item->id]) }}" method="POST" class="inline-block">
+                                    @csrf
+                                    @method('PATCH')
+                                    <select name="status" onchange="this.form.submit()"
+                                            class="text-xs font-bold rounded-xl px-3 py-1.5 border transition cursor-pointer shadow-2xs {{ strtolower($item->status ?? '') === 'kerja' ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200' }}">
+                                        <option value="kerja" {{ strtolower($item->status ?? '') === 'kerja' ? 'selected' : '' }}>⚡ Kerja / Operasional</option>
+                                        <option value="libur" {{ strtolower($item->status ?? '') === 'libur' ? 'selected' : '' }}>☕ Libur / Non-Aktif</option>
+                                    </select>
+                                </form>
+                            @else
+                                @if(strtolower($item->status ?? '') === 'kerja')
+                                    <x-status-badge size="small" color="green">Kerja / Operasional</x-status-badge>
+                                @else
+                                    <x-status-badge size="small" color="slate">Libur / Non-Aktif</x-status-badge>
+                                @endif
+                            @endif
                         @else
-                            <x-status-badge size="small" color="slate">Libur / Non-Aktif</x-status-badge>
-                        @endif
+                            @if(strtolower($item->status ?? '') === 'kerja')
+                                <x-status-badge size="small" color="green">Kerja / Operasional</x-status-badge>
+                            @else
+                                <x-status-badge size="small" color="slate">Libur / Non-Aktif</x-status-badge>
+                            @endif
+                        @endcan
                     </td>
 
                     @if($urugan)

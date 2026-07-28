@@ -12,14 +12,6 @@
                 </h2>
                 <p class="text-xs text-slate-500 mt-1">Pemantauan & Pengelolaan Proyek Urugan Tanah</p>
             </div>
-            @can('konstruktor')
-                <x-button-link href="{{ route('urugan.create') }}" color="blue">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-                    </svg>
-                    <span>Tambah Proyek</span>
-                </x-button-link>
-            @endcan
         </div>
     </x-slot>
 

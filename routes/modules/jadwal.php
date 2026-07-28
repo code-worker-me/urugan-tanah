@@ -19,6 +19,11 @@ Route::middleware("auth")->group(function () {
         "store",
     ])->name("jadwalUrugan.store");
 
+    Route::patch("/urugan/{urugan}/jadwal-truk/{jadwal}/status", [
+        JadwalController::class,
+        "updateStatus",
+    ])->name("jadwalUrugan.updateStatus");
+
     Route::delete("/urugan/{urugan}/jadwal-truk/{jadwal}", [
         JadwalController::class,
         "delete",

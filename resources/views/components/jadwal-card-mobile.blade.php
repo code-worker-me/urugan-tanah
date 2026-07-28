@@ -19,11 +19,31 @@
                 </div>
 
                 <div>
-                    @if(strtolower($item->status ?? '') === 'kerja')
-                        <x-status-badge size="small" color="green">Kerja</x-status-badge>
+                    @can('kantor')
+                        @if($urugan)
+                            <form action="{{ route('jadwalUrugan.updateStatus', [$urugan->id, $item->id]) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <select name="status" onchange="this.form.submit()"
+                                        class="text-xs font-bold rounded-xl px-2.5 py-1 border transition cursor-pointer shadow-2xs {{ strtolower($item->status ?? '') === 'kerja' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-slate-100 text-slate-700 border-slate-200' }}">
+                                    <option value="kerja" {{ strtolower($item->status ?? '') === 'kerja' ? 'selected' : '' }}>⚡ Kerja</option>
+                                    <option value="libur" {{ strtolower($item->status ?? '') === 'libur' ? 'selected' : '' }}>☕ Libur</option>
+                                </select>
+                            </form>
+                        @else
+                            @if(strtolower($item->status ?? '') === 'kerja')
+                                <x-status-badge size="small" color="green">Kerja</x-status-badge>
+                            @else
+                                <x-status-badge size="small" color="slate">Libur</x-status-badge>
+                            @endif
+                        @endif
                     @else
-                        <x-status-badge size="small" color="slate">Libur</x-status-badge>
-                    @endif
+                        @if(strtolower($item->status ?? '') === 'kerja')
+                            <x-status-badge size="small" color="green">Kerja</x-status-badge>
+                        @else
+                            <x-status-badge size="small" color="slate">Libur</x-status-badge>
+                        @endif
+                    @endcan
                 </div>
             </div>
 

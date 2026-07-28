@@ -42,6 +42,23 @@ class JadwalController extends Controller
             ->with("success", "Jadwal berhasil ditambahkan!");
     }
 
+    public function updateStatus(
+        Request $request,
+        Urugan $urugan,
+        JadwalTruk $jadwal,
+        JadwalService $jadwalService,
+    ) {
+        abort_unless(auth()->user()->can("kantor"), 403, "Hanya role kantor yang dapat mengubah status jadwal operasional truk.");
+
+        $request->validate([
+            "status" => "required|in:kerja,libur",
+        ]);
+
+        $jadwalService->updateStatus($urugan, $jadwal, $request->status);
+
+        return back()->with("success", "Status jadwal operasional truk berhasil diperbarui!");
+    }
+
     public function delete(
         Urugan $urugan,
         JadwalTruk $jadwal,
