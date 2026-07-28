@@ -18,9 +18,8 @@
 
             <div class="mb-6 flex items-start justify-between gap-4">
                 <div>
-                    <h1 class="text-2xl font-semibold">Jadwal Truk</h1>
+                    <h1 class="text-2xl font-semibold">Jadwal Kerja Truk</h1>
                     <p class="text-sm text-[#706f6c] dark:text-[#A1A09A] mt-1">
-                        Daftar jadwal truk urugan, diurutkan dari yang terbaru.
                     </p>
                 </div>
 
@@ -36,7 +35,7 @@
                         href="{{ route('login') }}"
                         class="shrink-0 inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-[#19140035] dark:border-[#3E3E3A] hover:border-black dark:hover:border-white rounded-sm text-sm leading-normal whitespace-nowrap"
                     >
-                        Masuk
+                        Login
                     </a>
                     @endauth
                 @endif
